@@ -5,6 +5,7 @@
 
 import simpy
 import random
+import statistics
 
 env = simpy.Environment() #ambiente de simulación
 
