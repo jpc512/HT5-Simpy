@@ -15,7 +15,7 @@ I_O = simpy.Resource(env,capacity = 1) #cola de waiting para hacer operaciones d
 
 random.seed(10) # fijar el inicio de random
 
-def programa(nombre, env, hora_llegada, RAM, CPU):
+def programa(nombre, env, hora_llegada, RAM, CPU, intervalos):
     global totalDia
     global desv_est
     
@@ -40,7 +40,7 @@ def programa(nombre, env, hora_llegada, RAM, CPU):
             yield running
             print("%f %s cpu disponible" %(env.now, nombre))
             #simulamos que tardamos 1 unidad de tiempo realizando 3 instrucciones
-            instrucciones -= 3
+            instrucciones -= intervalos
             tiempoRun = 1
             yield env.timeout(tiempoRun)
             
@@ -76,7 +76,7 @@ num_programas = 25
 for i in range(num_programas):
     tiempo_llegada = random.expovariate(1.0/10)
     print("programa %d llegara a las %f" %(i,tiempo_llegada))
-    env.process(programa('programa %d'%i,env, tiempo_llegada, RAM, CPU))
+    env.process(programa('programa %d'%i,env, tiempo_llegada, RAM, CPU, 3))
 
 env.run()  #correr la simulación hasta el tiempo = 50
 
