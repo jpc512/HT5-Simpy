@@ -16,6 +16,9 @@ random.seed(10) # fijar el inicio de random
 
 def programa(nombre, env, hora_llegada, RAM, CPU):
     global totalDia
+    global desv_est
+    
+    desv_est = []
     
     memoria = random.randint(1,10)
     instrucciones = random.randint(1,10)
@@ -61,6 +64,7 @@ def programa(nombre, env, hora_llegada, RAM, CPU):
     tiempoTotal = env.now - hora_llegada
     print ('%s tarda %f' % (nombre, tiempoTotal))
     totalDia = totalDia + tiempoTotal
+    desv_est.append(totalDia)
 
 # ----------------------
 
@@ -76,3 +80,4 @@ for i in range(num_programas):
 env.run()  #correr la simulación hasta el tiempo = 50
 
 print ("tiempo promedio por programa es: ", totalDia/num_programas)
+print(f" desv est: {statistics.stdev(desv_est)}")
